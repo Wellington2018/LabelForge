@@ -1,0 +1,15 @@
+# Ambiente virtual
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# IDE
+.vscode/
+
+# Arquivos temporários
+output/
+
+# PDFs
+input/*.pdf
