@@ -4,9 +4,9 @@
 
 ## 📖 Sobre o projeto
 
-O **LabelForge** foi criado por mim para uso no meu ambiente de trabalho, com o objetivo de eliminar tarefas repetitivas na produção de etiquetas e reduzir erros durante o preenchimento manual.
+O **LabelForge** foi criado por mim para uso no meu ambiente de trabalho, com o objetivo de reduzir tarefas repetitivas no processo de produção de etiquetas e diminuir erros durante o preenchimento manual.
 
-A aplicação lê um orçamento em PDF exportado pelo sistema **Farmax**, extrai automaticamente as informações dos produtos e gera um arquivo no formato **ODT**, preenchendo modelos de etiquetas prontos para impressão.
+A aplicação lê um orçamento em PDF gerado pelo sistema de gestão **Farmax**, extrai automaticamente as informações dos produtos e gera um arquivo no formato **ODT**, preenchendo modelos de etiquetas prontos para impressão.
 
 Embora tenha sido desenvolvido para atender uma necessidade real do meu trabalho, o projeto foi estruturado de forma modular, permitindo adaptações para outros modelos de etiquetas e documentos com formato semelhante.
 
@@ -27,20 +27,24 @@ Embora tenha sido desenvolvido para atender uma necessidade real do meu trabalho
 
 # 📋 Requisitos
 
-- Python **3.10** ou superior
+- Python **3.10** ou superior.
 
 ### Dependências
 
+As bibliotecas utilizadas estão listadas no arquivo `requirements.txt`.
+
 | Biblioteca | Finalidade |
 |------------|------------|
-| `pdfplumber` | Leitura do PDF |
-| `odfpy` | Manipulação de documentos ODT |
+| `pdfplumber` | Leitura e extração de informações do PDF |
+| `odfpy` | Manipulação e geração de documentos ODT |
 
 ---
 
 # 📦 Instalação
 
 ## Windows
+
+Crie um ambiente virtual e instale as dependências:
 
 ```bash
 python -m venv .venv
@@ -55,17 +59,17 @@ pip install -r requirements.txt
 ```text
 LabelForge/
 │
-├── input/          # PDFs de entrada
-├── output/         # Arquivos gerados automaticamente
-├── templates/      # Modelos de etiquetas (.odt)
-│   ├── 10X1.odt
-│   └── 24X1.odt
+├── input/              # PDFs de entrada
+├── output/             # Arquivos gerados automaticamente
+├── templates/          # Modelos de etiquetas (.odt)
+│   ├── 10x1.odt
+│   └── 24x1.odt
 │
-├──src/             # Código-fonte
+├── src/                # Código-fonte
 │   ├── config.py
 │   ├── generator.py
 │   ├── main.py
-│   ├── models.py 
+│   ├── models.py
 │   ├── parser.py
 │   └── utils.py
 │
@@ -85,7 +89,6 @@ LabelForge/
 | `utils.py` | Reúne funções auxiliares reutilizadas pela aplicação, como validação de arquivos, geração de nomes para os arquivos de saída e utilidades de apoio à interface de linha de comando. |
 
 > **Arquitetura:** O projeto foi organizado em módulos com responsabilidades bem definidas, seguindo o princípio da responsabilidade única (*Single Responsibility Principle – SRP*). Essa organização facilita a manutenção, a reutilização de código e futuras expansões, como suporte a novos formatos de PDF, novos modelos de etiquetas ou diferentes interfaces de usuário.
-```
 
 ---
 
@@ -95,13 +98,17 @@ LabelForge/
 
 Coloque o orçamento em PDF dentro da pasta:
 
-```
+```text
 input/
 ```
+
+Caso exista mais de um arquivo PDF, o primeiro encontrado em ordem alfabética será utilizado.
 
 ---
 
 ## 2. Execute o programa
+
+Na raiz do projeto:
 
 ```bash
 python src/main.py
@@ -111,7 +118,7 @@ python src/main.py
 
 ## 3. Escolha o modelo de etiqueta
 
-```
+```text
 1 → Modelo 10x1
 2 → Modelo 24x1
 ```
@@ -122,7 +129,7 @@ python src/main.py
 
 Após a execução, será criado um arquivo semelhante a:
 
-```
+```text
 output/
 └── Etiquetas_10x1_03-08-2026_14-35-10.odt
 ```
@@ -131,10 +138,10 @@ output/
 
 # 📄 Formato esperado do PDF
 
-Cada produto deve estar em uma única linha seguindo o padrão:
+O programa espera encontrar produtos em linhas contendo:
 
-```
-Código
+```text
+Código interno
 Código de barras
 Nome do produto
 Quantidade
@@ -145,30 +152,40 @@ Preço total
 
 ### Exemplo
 
-```
+```text
 7 7891234560011 ARROZ TIO JOÃO 5 KG 2 29,90 29,90 59,80
 ```
+
+O código de barras é utilizado como referência para identificação da estrutura da linha durante a extração dos dados.
 
 ---
 
 # 🏷️ Marcadores dos modelos
 
-Os arquivos ODT utilizam marcadores que são substituídos automaticamente.
+Os arquivos ODT utilizam marcadores que são substituídos automaticamente pelos dados dos produtos.
 
 | Marcador | Conteúdo |
 |----------|----------|
-| `{{CODIGO_N}}` | Código do produto |
-| `{{PRODUTO_N}}` | Nome do produto |
-| `{{PRECO_N}}` | Preço do produto |
+| `{{CODIGO1}}` | Código do produto |
+| `{{PRODUTO1}}` | Nome do produto |
+| `{{PRECO1}}` | Preço do produto |
 
-Onde **N** representa a posição da etiqueta no modelo.
+O número representa a posição da etiqueta no modelo.
 
-Exemplo:
+Exemplo para a primeira etiqueta:
 
+```text
+{{CODIGO1}}
+{{PRODUTO1}}
+{{PRECO1}}
 ```
-{{CODIGO_1}}
-{{PRODUTO_1}}
-{{PRECO_1}}
+
+Exemplo para a segunda etiqueta:
+
+```text
+{{CODIGO2}}
+{{PRODUTO2}}
+{{PRECO2}}
 ```
 
 ---
@@ -180,15 +197,27 @@ Exemplo:
 | **10x1** | 10 etiquetas por página |
 | **24x1** | 24 etiquetas por página |
 
-Novos modelos podem ser adicionados à pasta `templates/`.
+Novos modelos podem ser adicionados à pasta:
+
+```text
+templates/
+```
 
 ---
 
-## 💡 Motivação
+# 💡 Motivação
 
-Durante minha rotina de trabalho, percebi que a criação manual de etiquetas consumia tempo e estava sujeita a erros de digitação. Para resolver esse problema, desenvolvi o **LabelForge**, uma ferramenta capaz de transformar automaticamente um orçamento exportado pelo sistema **Farmax** em um documento de etiquetas pronto para impressão.
+Durante minha rotina de trabalho, percebi que a criação manual de etiquetas consumia tempo e estava sujeita a erros de digitação.
 
-Além de otimizar o processo, o projeto também serviu como uma oportunidade para aplicar conhecimentos de Python, manipulação de PDFs, automação de documentos e desenvolvimento de ferramentas voltadas para problemas reais do dia a dia.
+Para resolver esse problema, desenvolvi o **LabelForge**, uma ferramenta capaz de transformar automaticamente um orçamento exportado pelo sistema **Farmax** em um documento de etiquetas pronto para impressão.
+
+Além de otimizar o processo, o projeto também serviu como uma oportunidade para aplicar conhecimentos em:
+
+- Python;
+- Manipulação de PDFs;
+- Automação de documentos;
+- Estruturação de projetos;
+- Desenvolvimento de ferramentas para problemas reais do dia a dia.
 
 ---
 
@@ -204,11 +233,13 @@ Além de otimizar o processo, o projeto também serviu como uma oportunidade par
 # 🛠️ Tecnologias utilizadas
 
 - Python 3
-- pdfplumber
-- odfpy
+- `pdfplumber`
+- `odfpy`
 
 ---
 
 # 📄 Licença
 
-Este projeto é disponibilizado para fins de estudo e uso pessoal. Adapte-o conforme sua necessidade, respeitando as licenças das bibliotecas utilizadas.
+Este projeto é disponibilizado para fins educacionais e demonstração de desenvolvimento.
+
+Respeite as licenças das bibliotecas utilizadas e adapte o projeto conforme sua necessidade.
