@@ -2,6 +2,11 @@
 
 > Ferramenta de linha de comando desenvolvida em Python para automatizar a geração de etiquetas de preço a partir de um orçamento em PDF.
 
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
+![PDF](https://img.shields.io/badge/PDF-processing-red?logo=adobeacrobatreader&logoColor=white)
+![ODT](https://img.shields.io/badge/ODT-generation-orange)
+![Status](https://img.shields.io/badge/status-concluído-success)
+
 ## 📖 Sobre o projeto
 
 O **LabelForge** foi criado por mim para uso no meu ambiente de trabalho, com o objetivo de reduzir tarefas repetitivas no processo de produção de etiquetas e diminuir erros durante o preenchimento manual.
