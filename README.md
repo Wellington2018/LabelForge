@@ -78,8 +78,6 @@ Coloque o orçamento em PDF dentro da pasta:
 input/
 ```
 
-Caso existam vários arquivos PDF, será utilizado o primeiro em ordem alfabética.
-
 ---
 
 ## 2. Execute o programa
