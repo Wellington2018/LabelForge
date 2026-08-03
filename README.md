@@ -13,11 +13,11 @@ Ferramenta de linha de comando que lê um orçamento em PDF, extrai os produtos 
 
 Windows
 
-,,,
+```cpp
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-,,,
+```
 
 # Estrutura de pastas
 
@@ -33,9 +33,9 @@ pip install -r requirements.txt
 
 2. Execute o programa a partir da raiz do projeto:
 
-,,,
+```cpp
 python src/main.py
-,,,
+```
 
 3. Escolha o modelo de etiqueta:
 
