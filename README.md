@@ -50,9 +50,9 @@ pip install -r requirements.txt
 
 ---
 
-# 📁 Estrutura do projeto
+# 📁 Estrutura do Projeto
 
-```
+```text
 LabelForge/
 │
 ├── input/          # PDFs de entrada
@@ -61,9 +61,30 @@ LabelForge/
 │   ├── 10X1.odt
 │   └── 24X1.odt
 │
-├── src/            # Código-fonte
+├──src/             # Código-fonte
+│   ├── config.py
+│   ├── generator.py
+│   ├── main.py
+│   ├── models.py 
+│   ├── parser.py
+│   └── utils.py
+│
 ├── requirements.txt
 └── README.md
+```
+
+## Responsabilidade dos módulos
+
+| Arquivo | Responsabilidade |
+|---------|------------------|
+| `main.py` | Ponto de entrada da aplicação. Coordena todo o fluxo de execução, desde a localização do PDF e escolha do modelo até a geração do arquivo final de etiquetas. |
+| `config.py` | Centraliza as configurações do projeto, incluindo os caminhos das pastas (`input`, `output` e `templates`) e a definição dos modelos de etiquetas disponíveis. |
+| `parser.py` | Implementa a classe `PDFParser`, responsável por ler o orçamento em PDF, corrigir inconsistências na extração de texto, identificar as linhas de produtos e convertê-las em objetos `Produto`. |
+| `generator.py` | Implementa a classe `ODTGenerator`, responsável por carregar um modelo ODT, substituir os marcadores pelos dados dos produtos e gerar o arquivo final de etiquetas. |
+| `models.py` | Define as classes de domínio da aplicação (`Produto` e `ModeloEtiqueta`), utilizadas para representar de forma estruturada os dados processados entre os módulos. |
+| `utils.py` | Reúne funções auxiliares reutilizadas pela aplicação, como validação de arquivos, geração de nomes para os arquivos de saída e utilidades de apoio à interface de linha de comando. |
+
+> **Arquitetura:** O projeto foi organizado em módulos com responsabilidades bem definidas, seguindo o princípio da responsabilidade única (*Single Responsibility Principle – SRP*). Essa organização facilita a manutenção, a reutilização de código e futuras expansões, como suporte a novos formatos de PDF, novos modelos de etiquetas ou diferentes interfaces de usuário.
 ```
 
 ---
