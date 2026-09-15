@@ -13,3 +13,11 @@ output/
 
 # PDFs
 input/*.pdf
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Releases
+release/
