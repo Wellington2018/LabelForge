@@ -321,6 +321,7 @@ frame_modelos.grid(
 
 frame_modelos.columnconfigure(0, weight=1)
 frame_modelos.columnconfigure(1, weight=1)
+frame_modelos.columnconfigure(2, weight=1)
 
 frame_modelos_interno = ttk.Frame(
     frame_modelos
@@ -329,7 +330,7 @@ frame_modelos_interno = ttk.Frame(
 frame_modelos_interno.grid(
     row=0,
     column=0,
-    columnspan=2
+    columnspan=3
 )
 
 radio_10x1 = ttk.Radiobutton(
@@ -342,7 +343,7 @@ radio_10x1 = ttk.Radiobutton(
 radio_10x1.grid(
     row=0,
     column=0,
-    padx=25,
+    padx=15,
     pady=3
 )
 
@@ -356,7 +357,35 @@ radio_24x1 = ttk.Radiobutton(
 radio_24x1.grid(
     row=0,
     column=1,
-    padx=25,
+    padx=15,
+    pady=3
+)
+
+radio_a4 = ttk.Radiobutton(
+    frame_modelos_interno,
+    text="A4",
+    variable=modelo,
+    value="A4"
+)
+
+radio_a4.grid(
+    row=0,
+    column=2,
+    padx=15,
+    pady=3
+)
+
+radio_a5 = ttk.Radiobutton(
+    frame_modelos_interno,
+    text="A5",
+    variable=modelo,
+    value="A5"
+)
+
+radio_a5.grid(
+    row=0,
+    column=3,
+    padx=15,
     pady=3
 )
 
