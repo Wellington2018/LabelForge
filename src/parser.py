@@ -1,13 +1,3 @@
-"""
-parser.py
-
-Responsável pela leitura do orçamento em PDF e pela extração
-dos produtos encontrados.
-
-Autor: Wellington Oliveira
-Projeto: LabelForge
-"""
-
 from __future__ import annotations
 
 import re
@@ -20,26 +10,11 @@ from models import Produto
 
 
 class PDFParser:
-    """
-    Faz a leitura de um orçamento em PDF e extrai os produtos.
-
-    Exemplo:
-
-        parser = PDFParser("orcamento.pdf")
-        produtos = parser.extrair_produtos()
-    """
 
     def __init__(self, pdf_path: Path):
         self.pdf_path = Path(pdf_path)
 
-    # ---------------------------------------------------------
-    # MÉTODOS PRIVADOS
-    # ---------------------------------------------------------
-
     def _ler_pdf(self) -> str:
-        """
-        Lê todas as páginas do PDF e retorna o texto completo.
-        """
 
         texto = ""
 
@@ -66,12 +41,7 @@ class PDFParser:
         return texto
 
     def _corrigir_linha(self, linha: str) -> str:
-        """
-        Corrige pequenos problemas de OCR ou de extração
-        encontrados no PDF.
-        """
 
-        # Quando o nome fica colado ao código de barras.
 
         linha = re.sub(
             r"^(\d+)\s+(\d{8,13})([A-ZÁÉÍÓÚÃÕÇ])",
@@ -79,7 +49,6 @@ class PDFParser:
             linha,
         )
 
-        # Quando uma palavra cola no número.
 
         linha = re.sub(
             r"([A-ZÁÉÍÓÚÃÕÇ])(\d+)\s+(\d+,\d{2})\s+\d+,\d{2}\s+\d+,\d{2}$",
@@ -90,9 +59,6 @@ class PDFParser:
         return linha
 
     def _linha_eh_produto(self, linha: str) -> bool:
-        """
-        Verifica se a linha parece representar um produto.
-        """
 
         return bool(
             re.match(
@@ -102,9 +68,6 @@ class PDFParser:
         )
 
     def _extrair_produto(self, linha: str) -> Produto | None:
-        """
-        Extrai um único produto da linha.
-        """
 
         padrao = re.compile(
             r"""
@@ -142,14 +105,7 @@ class PDFParser:
             preco=preco,
         )
 
-    # ---------------------------------------------------------
-    # MÉTODO PÚBLICO
-    # ---------------------------------------------------------
-
     def extrair_produtos(self) -> List[Produto]:
-        """
-        Extrai todos os produtos encontrados no PDF.
-        """
 
         texto = self._ler_pdf()
 
