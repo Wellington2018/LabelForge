@@ -1,12 +1,3 @@
-"""
-main.py
-
-Ponto de entrada do LabelForge.
-
-Autor: Wellington Oliveira
-Projeto: LabelForge
-"""
-
 from pathlib import Path
 
 from config import INPUT_DIR, OUTPUT_DIR, MODELOS
@@ -17,9 +8,6 @@ from utils import titulo, validar_arquivo
 
 
 def escolher_modelo() -> ModeloEtiqueta:
-    """
-    Exibe o menu e retorna o modelo escolhido.
-    """
 
     print("\nModelos disponíveis:\n")
 
@@ -44,11 +32,6 @@ def escolher_modelo() -> ModeloEtiqueta:
 
 
 def localizar_pdf() -> Path:
-    """
-    Procura automaticamente um PDF dentro da pasta input.
-
-    Caso exista mais de um PDF, utiliza o primeiro encontrado.
-    """
 
     arquivos = sorted(INPUT_DIR.glob("*.pdf"))
 
